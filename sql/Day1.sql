@@ -1,3 +1,11 @@
+/*
+DECLARE @inp NVARCHAR(MAX)
+SELECT @inp = BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\alligator\dev\aoc2015\1.txt', SINGLE_CLOB) x;
+
+EXEC Day1_Part2 @inp
+*/
+
 CREATE OR ALTER PROCEDURE Day1_Part1 @inp NVARCHAR(MAX) AS
 BEGIN
 	SELECT
@@ -38,7 +46,7 @@ BEGIN
 	SELECT TOP 1 position = C.Number
 	FROM (
 		SELECT
-			currentFloor = SUM(CASE WHEN SUBSTRING(@inp, Number, 1) = '(' THEN 1 ELSE -1 END) OVER(ORDER BY Number),
+			currentFloor = SUM(CASE WHEN SUBSTRING(@inp, Number, 1) = '(' THEN 1 ELSE -1 END) OVER(ORDER BY Number ROWS UNBOUNDED PRECEDING),
 			Number = Number
 		FROM dbo.Numbers
 		WHERE Number > 0 AND Number <= LEN(@inp)
