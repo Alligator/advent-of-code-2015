@@ -1,3 +1,6 @@
+----------------------
+-- Part 1
+----------------------
 CREATE OR ALTER FUNCTION Day5_IsNice(@input NVARCHAR(16))
 RETURNS BIT
 AS
@@ -49,6 +52,52 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROC dbo.Day5_Part1
+AS
+BEGIN
+	DECLARE @inp NVARCHAR(MAX)
+	SELECT @inp = BulkColumn
+	FROM OPENROWSET(BULK N'C:\Users\alligator\dev\aoc2015\5.txt', SINGLE_CLOB) x;
+
+	SELECT NiceStrings = COUNT(*)
+	FROM STRING_SPLIT(REPLACE(@inp, NCHAR(13), ''), NCHAR(10))
+	WHERE dbo.Day5_IsNice(value) = 1
+END
+GO
+
+----------------------
+-- Part 2
+----------------------
+CREATE OR ALTER FUNCTION Day5_Part2_IsNice(@input NVARCHAR(16))
+RETURNS BIT
+AS
+BEGIN
+	DECLARE @HasPair BIT
+	SELECT @HasPair = dbo.RegexMatch(@input, N'([a-z])([a-z]).*\1\2')
+
+	DECLARE @HasRepeat BIT
+	SELECT @HasRepeat = dbo.RegexMatch(@input, N'([a-z])[a-z]\1')
+
+	RETURN @HasPair & @HasRepeat
+END
+GO
+
+-- EXEC dbo.Day5_Part1
+-- EXEC dbo.Day5_Part2
+
+CREATE OR ALTER PROC dbo.Day5_Part2
+AS
+BEGIN
+	DECLARE @inp NVARCHAR(MAX)
+	SELECT @inp = BulkColumn
+	FROM OPENROWSET(BULK N'C:\Users\alligator\dev\aoc2015\5.txt', SINGLE_CLOB) x;
+
+	SELECT NiceStrings = COUNT(*)
+	FROM STRING_SPLIT(REPLACE(@inp, NCHAR(13), ''), NCHAR(10))
+	WHERE dbo.Day5_Part2_IsNice(value) = 1
+END
+GO
+
 EXEC tSQLt.NewTestClass 'TestDay5';
 GO
 
@@ -95,6 +144,23 @@ BEGIN
 		,	(N'aaaxy',	0)
 
 	SELECT Input, IsNice = dbo.Day5_IsNice(Input)
+	INTO #results
+	FROM #expected
+
+	EXEC tSQLt.AssertEqualsTable '#expected', '#results'
+END;
+GO
+
+CREATE PROCEDURE TestDay5.[Test - Day5_Part2_IsNice] AS
+BEGIN
+	CREATE TABLE #expected (Input NVARCHAR(16), IsNice BIT)
+	INSERT INTO #expected (Input, IsNice)
+	VALUES	(N'qjhvhtzxzqqjkmpb',	1)
+		,	(N'xxyxx',				1)
+		,	(N'uurcxstgmygtbstg',	0)
+		,	(N'ieodomkazucvgmuy',	0)
+
+	SELECT Input, IsNice = dbo.Day5_Part2_IsNice(Input)
 	INTO #results
 	FROM #expected
 
