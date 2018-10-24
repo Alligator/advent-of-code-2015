@@ -95,6 +95,11 @@ BEGIN
 	SELECT NiceStrings = COUNT(*)
 	FROM STRING_SPLIT(REPLACE(@inp, NCHAR(13), ''), NCHAR(10))
 	WHERE dbo.Day5_Part2_IsNice(value) = 1
+
+	-- example using one regex
+	SELECT NiceStrings = COUNT(*)
+	FROM STRING_SPLIT(REPLACE(@inp, NCHAR(13), ''), NCHAR(10))
+	WHERE dbo.RegexMatch(value, N'(?=.*([a-z])([a-z]).*\1\2)(?=.*([a-z])[a-z]\3)') = 1
 END
 GO
 
