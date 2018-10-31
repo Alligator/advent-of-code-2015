@@ -1,0 +1,8 @@
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\bin\Debug\netcoreapp2.1\Day7.deps.json
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\bin\Debug\netcoreapp2.1\Day7.runtimeconfig.json
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\bin\Debug\netcoreapp2.1\Day7.runtimeconfig.dev.json
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\bin\Debug\netcoreapp2.1\Day7.dll
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\bin\Debug\netcoreapp2.1\Day7.pdb
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\obj\Debug\netcoreapp2.1\Day7.fsprojAssemblyReference.cache
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\obj\Debug\netcoreapp2.1\Day7.dll
+C:\Users\alligator\dev\aoc2015\f#\Day7\Day7\obj\Debug\netcoreapp2.1\Day7.pdb
